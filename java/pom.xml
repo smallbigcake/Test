@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>cake.cn</groupId>
+	<artifactId>cake-apple-pom</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<properties>
+		<sysname>cake-apple</sysname>
+		<project.home>${basedir}</project.home>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<lombok.version>1.18.4</lombok.version>
+		<druid.version>1.1.10</druid.version>
+		<mybatis-plus.version>3.0.6</mybatis-plus.version>
+		<pagehelper.boot.version>1.2.5</pagehelper.boot.version>
+		<fastjson.version>1.2.78</fastjson.version>
+		<thymeleaf.extras.shiro.version>2.0.0</thymeleaf.extras.shiro.version>
+		<bitwalker.version>1.19</bitwalker.version>
+		<collection.version>4.0</collection.version>
+		<oauth.version>2.3.3.RELEASE</oauth.version>
+		<oauth.autoconfigure.version>2.3.3.RELEASE</oauth.autoconfigure.version>
+		<swagger.version>2.9.2</swagger.version>
+		<swagger.m.version>1.0.6</swagger.m.version>
+		<maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+		<maven.built.timestamp>${maven.build.timestamp}</maven.built.timestamp>
+
+		<spring-boot-dependencies.version>2.0.7.RELEASE</spring-boot-dependencies.version>
+		<spring-cloud-dependencies.version>Finchley.RELEASE</spring-cloud-dependencies.version>
+
+		<!-- package fat-jar switch -->
+		<project.plugin.assembly.skip>false</project.plugin.assembly.skip>
+	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot-dependencies.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud-dependencies.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+	</build>
+	
+
+	<modules>
+		<module>cake-apple-common</module>
+		<module>cake-apple-mdm</module>
+		<module>cake-apple-vo</module>
+		<module>cake-apple-feign</module>
+		<module>cake-apple-im-server</module>
+		<module>cake-apple-web-server</module>
+		<module>cake-apple-bbs-server</module>
+		<module>cake-apple-oauth-server</module>
+		<module>cake-apple-framework</module>
+		<module>cake-apple-account-server</module>
+		<module>cake-apple-general-server</module>
+		<module>cake-apple-gateway-server</module>
+		<module>cake-apple-registry-server</module>
+		<module>cake-apple-core-server</module>
+		<module>cake-apple-adapter-server</module>
+		<module>cake-apple-api-server</module>
+		<module>cake-apple-component</module>
+	</modules>
+
+	<profiles>
+		<profile>
+			<id>local</id>
+			<!-- 默认激活开发配制，使用config-dev.properties来替换设置过虑的资源文件中的${key} -->
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<apollo.meto>http://10.10.10.123:8080</apollo.meto>
+			</properties>
+		</profile>
+		<profile>
+			<id>non-local</id>
+			<properties>
+				<apollo.meto></apollo.meto>
+			</properties>
+		</profile>
+	</profiles>
+
+	<!-- 使用aliyun代理，加快构件下载速度 -->
+	<repositories>
+		<repository>
+			<id>aliyun-maven</id>
+			<name>aliyun maven</name>
+			<url>https://maven.aliyun.com/repository/public</url>
+			<!-- 是否开启发布版构件下载 -->
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<!-- 是否开启快照版构件下载 -->
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>aliyun-maven</id>
+			<name>aliyun maven</name>
+			<url>https://maven.aliyun.com/repository/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+</project>
