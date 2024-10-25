@@ -2,4 +2,4 @@ uuid
 requests
 threadpool
 Crypto.Cipher
-certifi==2023.7.22
+certifi==2024.7.4
